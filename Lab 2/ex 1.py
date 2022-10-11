@@ -13,7 +13,7 @@ y = stats.expon.rvs(0, 1/6, 10000)
 z=stats.binom.rvs(1, 0.4, size=10000) 
 
 for i in range(10000):
-    if z[i]==1: #sub 40
+    if z[i]==1:
         a.append(x[i])
     if z[i]==0:
         a.append(y[i])  
