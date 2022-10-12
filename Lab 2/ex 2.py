@@ -7,8 +7,8 @@ import arviz as az
 np.random.seed(1)
 
 a=[]
-x = stats.expon.rvs(0, 1/4, 1)    # latenta 1/4 pe care o adaug la gamma
-z = stats.uniform.rvs(0, 1, size=10000) # Distributie uniforma intre 0 si 1, 1000 samples
+x = stats.expon.rvs(0, 1/4, 1)   
+z = stats.uniform.rvs(0, 1, size=10000) 
 g1 = stats.gamma.rvs(4, 0, 1/3,size=10000) 
 g2 = stats.gamma.rvs(4, 0, 1/2,size=10000)
 g3 = stats.gamma.rvs(5, 0, 1/2,size=10000)
@@ -19,7 +19,10 @@ for i in range(10000):
       a.append(g1[i] + x)
       a.append(g2[i] + x)
    if z[i] < 0.3:
-      a.append(g3[i] + x)   
+      a.append(g3[i] + x) 
+   else:
+       a.append(g4[i] + x) 
+
 
 mean = np.mean(a)
 print(mean)
