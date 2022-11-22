@@ -39,3 +39,28 @@ with pm.Model() as model:
 
 az.plot_trace(idata_mlr, var_names=['alfa', 'beta1', 'beta2', 'epsilon'])
 
+
+# 2
+az.plot_posterior(
+        {"alpha": idata_mlr['alpha'], "beta1": idata_mlr['beta1'], "beta2": idata_mlr['beta2'], "epsilon": idata_mlr['epsilon']},
+        hdi_prob=0.95,)
+plt.show()
+
+
+# 3
+# Daca analizam rezultatele obtinute pentru beta1 si beta2, putem spune ca frecventa procesorului
+# si marimea hard disk-ului au o influenta semnificativa asupra pretului de vanzare 
+
+#4
+with pm.Model as model:
+     alpha = pm.Normal("alpha", mu=np.mean(price), sd=2)
+     beta1 = pm.Normal("beta1", mu=-5, sd=10)
+     beta2 = pm.Normal("beta2", mu=8, sd=12)
+     epsilon = pm.HalfCauchy("epsilon", np.std(price))
+     mu2 = pm.Deterministic("mu2", alpha + beta1 * [33 for i in price] + beta2 * [np.log(540) for i in price])
+
+     y_pred = pm.Normal("y_pred", mu=mu2, sd=epsilon, observed=price)
+     idata_g = pm.sample(5000, tune=5000, return_inferencedata=True)
+
+az.plot_trace(idata_g, var_names=["alpha", "beta1", "beta2", "sigma"])
+plt.show()
