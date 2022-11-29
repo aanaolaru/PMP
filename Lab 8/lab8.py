@@ -32,14 +32,6 @@ if __name__ == "__main__":
           trace = pm.sample(2000, tune=2000, cores=4)
           trace = pm.sample(return_inferencedata=True)
 
-    sort_idx = np.argsort(first_axis_x1[:,0])
-    bd = idata_1.posterior['bd'].mean(("chain", "draw"))[sort_idx]
-    plt.scatter(first_axis_x1[:,0], first_axis_x1[:,1], c=[f'C{x}' for x in y_1])
-    plt.plot(first_axis_x1[:,0][sort_idx], bd, color='k')
-    az.plot_hdi(first_axis_x1[:,0], idata_1.posterior['bd'], color='k')
-    plt.xlabel(x_n[0])
-    plt.ylabel(x_n[1])
-
     #2
     posterior = trace.posterior.stack(samples=("chain", "draw"))
     theta = posterior['mu'].mean("samples")
