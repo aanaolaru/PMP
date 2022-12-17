@@ -12,7 +12,7 @@ std_devs = [2, 2, 2]
 mix = np.random.normal(np.repeat(means, n_cluster),
 np.repeat(std_devs, n_cluster))
 az.plot_kde(np.array(mix))
-np.savetxt( 'file.csv' , mix, delimiter=',' , fmt= '%.2f', comments= '', encoding= 'utf-8', )
+np.savetxt( 'file.csv' , mix, delimiter=',' , fmt= '%.2f', comments= '', encoding= 'utf-8')
 plt.hist( mix, bins= 50, density= True, alpha= 0.5, color= 'b')
 plt.show()
 
